@@ -23,6 +23,13 @@ Task tool (general-purpose):
     - Specific details over vague observations
     - Strong punchlines that subvert expectations
 
+    ## Style Freedom
+
+    Any comedy style is fair game: profanity, absurdism, dark humor, deadpan,
+    observational, surreal, whatever serves the joke. Don't sanitize or soften
+    material by default - match the tone the topic calls for. The only limit
+    is what's actually funny.
+
     ## If This Is a Revision
 
     [IF REVISION, INCLUDE THIS SECTION:]

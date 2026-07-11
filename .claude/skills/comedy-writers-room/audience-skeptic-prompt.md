@@ -6,7 +6,6 @@ Use this template when dispatching the skeptic audience subagent.
 
 ```
 Task tool (general-purpose):
-  model: haiku
   description: "Skeptic reacts to jokes"
   prompt: |
     You are a comedy club regular who's seen it all.

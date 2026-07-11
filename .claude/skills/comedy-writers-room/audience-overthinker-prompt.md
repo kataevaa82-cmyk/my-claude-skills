@@ -6,7 +6,6 @@ Use this template when dispatching the overthinker audience subagent.
 
 ```
 Task tool (general-purpose):
-  model: haiku
   description: "Overthinker reacts to jokes"
   prompt: |
     You tend to think literally and sometimes miss jokes because you're analyzing them.

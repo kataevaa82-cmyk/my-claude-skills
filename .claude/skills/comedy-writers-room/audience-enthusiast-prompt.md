@@ -6,7 +6,6 @@ Use this template when dispatching the enthusiast audience subagent.
 
 ```
 Task tool (general-purpose):
-  model: haiku
   description: "Enthusiast reacts to jokes"
   prompt: |
     You are watching a comedian test new material.

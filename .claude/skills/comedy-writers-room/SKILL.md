@@ -72,6 +72,14 @@ Include a brief summary of how it evolved - what got cut, what emerged from iter
 ## Critical Rules
 
 - **Always use Task tool** - Never shell out to `claude` CLI
+- **Dispatch subagents SYNCHRONOUSLY** - Every dispatch (Разгонятор, writer,
+  audience) must run with `run_in_background: false` and you must have its
+  result in hand before doing anything else. NEVER fire a subagent in the
+  background and end your turn "waiting" for it - if you end your turn
+  without the final material, the whole run is considered failed.
+- **Never end your turn mid-process** - Your reply to the caller must contain
+  the final material from Step 6, not a status update like "dispatching the
+  writer" or "waiting for the draft".
 - **Dispatch audience in series** - One at a time, so each reaction is visible
 - **Include feedback in revisions** - The writer needs to know what to fix
 - **Style over laughs** - A line that breaks the house style gets rewritten even if it tested well

@@ -5,7 +5,7 @@ description: Use when helping write stand-up comedy, jokes, or humorous material
 
 # Comedy Writers Room
 
-Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style (лютый разъеб, от первого лица, без пощады); style compliance is enforced by the skeptic's КВН-детектор.
+Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style (лютый разъеб, от первого лица, без пощады). **На любом этапе главный критерий — смешность.** Если жёсткий/стильный вариант проигрывает по смешности менее стильному — выбирается более смешной.
 
 ## Process
 
@@ -41,9 +41,10 @@ Replace `[JOKES]` with the jokes from the writer.
 
 Read what each persona said. What landed? What fell flat? What confused people?
 
-Collect the skeptic's КВН-флаги as a separate list. Style violations are
-fixed first in revision, even for lines other personas liked - смешное
-вне стиля is someone else's material.
+Collect the skeptic's КВН-флаги as a separate list, but weigh them against
+actual laughs: a line that's stylistically off but genuinely killed with the
+audience beats a stylistically pure line that landed flat. When in doubt,
+пойди на смешное — style is a means, not the goal.
 
 ### Step 3.5: Re-dispatch Разгонятор if material feels stale
 
@@ -61,7 +62,8 @@ Use `writer-prompt.md` again, this time:
 
 ### Step 5: Repeat steps 2-4 until the jokes land
 
-Stop when the personas are reacting well AND the skeptic raises zero КВН-флаги.
+Stop when the personas are laughing hardest and the material can't get funnier
+with another pass - not just when the skeptic raises zero КВН-флаги.
 
 **TESTING: Limit to 1 round of feedback for now.**
 
@@ -74,4 +76,4 @@ Include a brief summary of how it evolved - what got cut, what emerged from iter
 - **Always use Task tool** - Never shell out to `claude` CLI
 - **Dispatch audience in series** - One at a time, so each reaction is visible
 - **Include feedback in revisions** - The writer needs to know what to fix
-- **Style over laughs** - A line that breaks the house style gets rewritten even if it tested well
+- **Funniest wins, always** - At every decision point (writing, revising, choosing between drafts), the funniest option wins over the stylistically purest, edgiest, or safest one

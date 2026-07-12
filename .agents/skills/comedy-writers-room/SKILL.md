@@ -5,65 +5,73 @@ description: Use when helping write stand-up comedy, jokes, or humorous material
 
 # Comedy Writers Room
 
-Write jokes using real Codex subagent delegation as a simulated writers room. One subagent finds unexpected angles, one writer subagent drafts, four audience subagents react, then a separate writer subagent revises based on their feedback.
+Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style (лютый разъеб, от первого лица, без пощады); style compliance is enforced by the skeptic's КВН-детектор.
 
 ## Process
 
-### Step 0: Delegate to Разгонятор for raw angles
+### Step 0: Dispatch Разгонятор for raw angles
 
-Read `razgonyator-prompt.md` and spawn a real Codex subagent with that prompt.
-- Replace `[TOPIC]` with the user's topic.
-- Leave `[JOKES]` empty on the first pass because no material exists yet.
+Read `razgonyator-prompt.md` and dispatch it first.
+- Replace `[TOPIC]` with the user's topic
+- Leave `[JOKES]` empty on the first pass (no material exists yet)
 
-This produces a list of unexpected angles/premises on the topic - not jokes, just raw material to seed the writer with directions beyond the obvious.
+This produces a list of first-person angles/premises on the topic - not jokes,
+just raw material to seed the writer with directions beyond the obvious.
 
-### Step 1: Delegate to a writer subagent for the first draft
+### Step 1: Dispatch the writer
 
-Read `writer-prompt.md` and spawn a separate real Codex writer subagent with that prompt.
-- Replace `[TOPIC]` with the user's topic.
-- Include the angles from Разгонятор as extra inspiration alongside the topic.
-- For the first draft, omit the revision section.
+Read `writer-prompt.md` and use that template to dispatch a subagent.
+- Replace `[TOPIC]` with the user's topic
+- Include the angles from Разгонятор as extra inspiration alongside the topic
+- For first draft, omit the revision section
+- Do not add extra style instructions of your own - the house style lives
+  inside `writer-prompt.md` and must be passed through unmodified
 
-### Step 2: Delegate to all 4 audience subagents
+### Step 2: Dispatch all 4 audience members in series
 
-Read each audience template and spawn separate real Codex subagents for each persona:
+Read each audience template and dispatch them one at a time:
 1. `audience-enthusiast-prompt.md`
 2. `audience-skeptic-prompt.md`
 3. `audience-overthinker-prompt.md`
 4. `audience-bratan-prompt.md`
 
-Replace `[JOKES]` with the jokes from the writer. The audience subagents may work in parallel.
+Replace `[JOKES]` with the jokes from the writer.
 
 ### Step 3: Synthesize feedback
 
-The main agent collects what each persona said. Identify what landed, what fell flat, what confused people, and what should be cut or strengthened.
+Read what each persona said. What landed? What fell flat? What confused people?
 
-### Step 3.5: Optionally re-delegate to Разгонятор if material feels stale
+Collect the skeptic's КВН-флаги as a separate list. Style violations are
+fixed first in revision, even for lines other personas liked - смешное
+вне стиля is someone else's material.
 
-If the synthesized feedback suggests the jokes are hacky/derivative, especially from the skeptic, spawn a new real Codex subagent with `razgonyator-prompt.md` and the current `[JOKES]` filled in, so it generates angles that avoid what's already been tried.
+### Step 3.5: Re-dispatch Разгонятор if material feels stale
 
-### Step 4: Delegate to a separate writer subagent for the rewrite
+If the synthesized feedback suggests the jokes are hacky/derivative (especially
+from the skeptic), dispatch `razgonyator-prompt.md` again with the current
+`[JOKES]` filled in, so it generates angles that avoid what's already been tried.
 
-Use `writer-prompt.md` again with a separate real Codex writer subagent, this time:
-- Include the revision section.
-- Replace `[FEEDBACK]` with the synthesized audience reactions.
-- Include any new angles from a re-dispatched Разгонятор.
+### Step 4: Dispatch writer again with feedback
 
-### Step 5: Default iteration limit
+Use `writer-prompt.md` again, this time:
+- Include the revision section
+- Replace `[FEEDBACK]` with the synthesized audience reactions,
+  КВН-флаги listed first
+- Include any new angles from a re-dispatched Разгонятор
 
-By default, run exactly one editing cycle: first draft, audience feedback, one rewrite. Only run additional cycles if the user explicitly asks for more iteration.
+### Step 5: Repeat steps 2-4 until the jokes land
+
+Stop when the personas are reacting well AND the skeptic raises zero КВН-флаги.
+
+**TESTING: Limit to 1 round of feedback for now.**
 
 ### Step 6: Present final material to user
 
-Show the user only the finished stand-up material. Do not show the angle list, audience feedback, synthesis, process notes, or subagent transcripts unless the user explicitly asks for them.
+Include a brief summary of how it evolved - what got cut, what emerged from iteration, which angles came from Разгонятор, and which КВН-флаги were fixed.
 
 ## Critical Rules
 
-- Use real Codex delegation for every role. Do not imitate multiple subagents inside one message.
-- Do not use Claude Task tool.
-- Do not use Claude CLI.
-- Audience subagents may run in parallel.
-- The main agent synthesizes feedback before requesting the rewrite.
-- Include feedback in revisions so the writer knows what to fix.
-- By default, perform one editing cycle.
-- The user sees only the finished stand-up.
+- **Always use Task tool** - Never shell out to `claude` CLI
+- **Dispatch audience in series** - One at a time, so each reaction is visible
+- **Include feedback in revisions** - The writer needs to know what to fix
+- **Style over laughs** - A line that breaks the house style gets rewritten even if it tested well

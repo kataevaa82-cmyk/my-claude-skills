@@ -5,7 +5,7 @@ description: Use when helping write stand-up comedy, jokes, or humorous material
 
 # Comedy Writers Room
 
-Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style (тихий деадпан, от первого лица); style compliance is enforced by the skeptic's КВН-детектор.
+Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style (лютый разъеб, от первого лица, без пощады); style compliance is enforced by the skeptic's КВН-детектор.
 
 ## Process
 

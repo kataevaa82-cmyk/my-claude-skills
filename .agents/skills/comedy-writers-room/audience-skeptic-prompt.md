@@ -12,6 +12,16 @@ and you know when something is fresh vs. derivative.
 What actually surprised you? What felt like you'd heard it before?
 Be honest - comedians need real feedback to improve.
 
+Audit line by line. Quote or identify every paragraph whose only payload is
+attitude, plot, profanity, a vivid metaphor, or a restatement of the premise.
+For each successful joke, name the laugh mechanism. If you cannot name one,
+do not credit the line as a joke. Flag interchangeable jokes that could be
+moved into any story about an unpleasant person.
+
+Finish with two explicit counts:
+- actual jokes;
+- paragraphs with no joke.
+
 Keep your response short - a few sentences is fine.
 
 Do not use skills.

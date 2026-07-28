@@ -62,10 +62,27 @@ Use `writer-prompt.md` again, this time:
 
 ### Step 5: Repeat steps 2-4 until the jokes land
 
-Stop when the personas are laughing hardest and the material can't get funnier
-with another pass - not just when the skeptic raises zero КВН-флаги.
+Run the number of passes the user requests. If no count is requested, run at
+least two revision passes. A pass is complete only after the writer receives
+specific line-level feedback and rewrites the material; merely dispatching a
+persona does not count as a pass.
 
-**TESTING: Limit to 1 round of feedback for now.**
+After every draft, perform a punch-density audit before asking the audience:
+
+- Mark every sentence that contains an actual laugh mechanism: reversal,
+  misdirection, act-out, escalation, analogy, callback, rule of three, or a
+  sharply specific reveal.
+- Treat attitude, insults, plot, vivid description, and profanity without a
+  mechanism as setup, not as jokes.
+- Verify that the draft preserves the user's facts. Comic escalation may invent
+  imagined consequences, but must not rewrite the triggering events.
+- Reject a draft if any paragraph has no marked laugh or if more than two setup
+  sentences occur consecutively.
+- Do not let a recurring metaphor substitute for jokes. Each return to the
+  premise must introduce a new comic turn, not merely rename the next plot beat.
+
+Stop only when the requested passes are complete and the final draft passes the
+punch-density audit. Zero КВН-флаги is not enough.
 
 ### Step 6: Present final material to user
 
@@ -77,3 +94,5 @@ Include a brief summary of how it evolved - what got cut, what emerged from iter
 - **Dispatch audience in series** - One at a time, so each reaction is visible
 - **Include feedback in revisions** - The writer needs to know what to fix
 - **Funniest wins, always** - At every decision point (writing, revising, choosing between drafts), the funniest option wins over the stylistically purest, edgiest, or safest one
+- **Count rewrites, not agents** - Never describe audience dispatches or raw-angle generation as completed orchestration passes
+- **No prose disguised as comedy** - A coherent story, an angry voice, or an extended metaphor is not a joke unless individual lines contain laugh mechanisms

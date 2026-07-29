@@ -9,6 +9,25 @@ Write jokes using subagents as a simulated audience. One agent finds unexpected 
 
 ## Process
 
+### Failure protocol: stop rewriting the user's voice
+
+If the user rejects two substantially different drafts, stop producing full
+rewrites. Do not ask them to restate the same request and do not defend the
+output with joke counts. Repeated rejection means the room has not calibrated
+to the performer's voice, even if its internal audit passed.
+
+Return to the user's original material and identify, without rewriting it:
+
+1. lines already written by the user that sound unmistakably like them;
+2. lines that reportedly earned live laughs, if that information exists;
+3. connective tissue that can be cut without changing voice;
+4. no more than three places where a new tag is actually needed.
+
+Then offer surgical editing in small batches. Change one beat at a time and show
+the original beside the proposed edit. Do not generate another complete persona,
+premise, or narrative until the user approves the direction. Live audience
+results and the performer's taste override every rubric in this skill.
+
 ### Step 0: Dispatch Разгонятор for raw angles
 
 Read `razgonyator-prompt.md` and dispatch it first.
@@ -100,3 +119,5 @@ Include a brief summary of how it evolved - what got cut, what emerged from iter
 - **Count rewrites, not agents** - Never describe audience dispatches or raw-angle generation as completed orchestration passes
 - **No prose disguised as comedy** - A coherent story, an angry voice, or an extended metaphor is not a joke unless individual lines contain laugh mechanisms
 - **Dry delivery** - Do not confuse shouting, cruelty, decorative comparisons, or sitcom dialogue with comic force; the narrator states absurd conclusions as routine facts
+- **Repeated rejection overrides the workflow** - After two rejected drafts, stop full rewrites and calibrate through small, reversible edits to the user's own lines
+- **Preserve the performer** - Never improve structure by replacing the user's recognizable voice with a generic comedy persona

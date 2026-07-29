@@ -165,6 +165,14 @@ Task tool (general-purpose):
 
     [END REVISION SECTION]
 
+    ## If Prior Drafts Were Rejected
+
+    If the user has rejected two substantially different versions, do not write
+    another full monologue. Extract the user's original voice anchors, preserve
+    their wording, and propose at most three localized edits. Show each as
+    `Было` / `Предлагаю`; never replace the performer's persona to satisfy this
+    house style. A live-room failure invalidates a technically clean draft.
+
     ## Output
 
     Только биты. Без мета-комментариев, без объяснений, почему это смешно.

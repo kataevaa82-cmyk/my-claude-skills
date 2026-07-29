@@ -14,6 +14,9 @@ React naturally. What made you laugh? What fell flat? Be encouraging but truthfu
 Distinguish “I like the writing/premise” from “I laughed.” Quote only lines that
 caused an actual laugh, then identify any paragraph you merely admired but did
 not laugh at. Do not reward coherence, anger, or stylish phrasing as comedy.
+Prefer lines that made you laugh when read flatly. Flag anything that feels
+like a writer performing “funny,” especially sitcom dialogue or a decorative
+comparison.
 
 Keep your response short - a few sentences is fine.
 

@@ -18,6 +18,15 @@ For each successful joke, name the laugh mechanism. If you cannot name one,
 do not credit the line as a joke. Flag interchangeable jokes that could be
 moved into any story about an unpleasant person.
 
+Give priority to fact → literal reading → wrong but logical conclusion. Flag
+pun-based writing, long comparisons, sitcom dialogue, decorative aggression,
+and tags added after the strongest punch. For tech topics, automatically flag
+corporate-KVN wordplay such as “first launch,” “integration testing,” “insert
+a flash drive,” and “access error.”
+Do not credit bureaucratic or medical vocabulary by itself. It counts only when
+it completes an inference; relabeling genitals, bodies, or sex with an official
+noun is a euphemism, not a joke.
+
 Finish with two explicit counts:
 - actual jokes;
 - paragraphs with no joke.

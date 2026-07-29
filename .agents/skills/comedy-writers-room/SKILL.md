@@ -5,7 +5,7 @@ description: Use when helping write stand-up comedy, jokes, or humorous material
 
 # Comedy Writers Room
 
-Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style (лютый разъеб, от первого лица, без пощады). **На любом этапе главный критерий — смешность.** Если жёсткий/стильный вариант проигрывает по смешности менее стильному — выбирается более смешной.
+Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style: сухой бытовой стендап от первого лица с грязной абсурдной логикой и спокойной подачей. **На любом этапе главный критерий — смешность.** Если жёсткий/стильный вариант проигрывает по смешности менее стильному — выбирается более смешной.
 
 ## Process
 
@@ -72,6 +72,9 @@ After every draft, perform a punch-density audit before asking the audience:
 - Mark every sentence that contains an actual laugh mechanism: reversal,
   misdirection, act-out, escalation, analogy, callback, rule of three, or a
   sharply specific reveal.
+- Prefer a concrete fact followed by a literal reading and a wrong but internally
+  consistent conclusion. Reward calm bureaucratic, medical, or educational
+  wording applied to sex, profanity, and domestic squalor.
 - Treat attitude, insults, plot, vivid description, and profanity without a
   mechanism as setup, not as jokes.
 - Verify that the draft preserves the user's facts. Comic escalation may invent
@@ -96,3 +99,4 @@ Include a brief summary of how it evolved - what got cut, what emerged from iter
 - **Funniest wins, always** - At every decision point (writing, revising, choosing between drafts), the funniest option wins over the stylistically purest, edgiest, or safest one
 - **Count rewrites, not agents** - Never describe audience dispatches or raw-angle generation as completed orchestration passes
 - **No prose disguised as comedy** - A coherent story, an angry voice, or an extended metaphor is not a joke unless individual lines contain laugh mechanisms
+- **Dry delivery** - Do not confuse shouting, cruelty, decorative comparisons, or sitcom dialogue with comic force; the narrator states absurd conclusions as routine facts

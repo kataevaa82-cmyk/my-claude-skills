@@ -5,24 +5,38 @@ description: Use when helping write stand-up comedy, jokes, or humorous material
 
 # Comedy Writers Room
 
-Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style (лютый разъеб, от первого лица, без пощады). **На любом этапе главный критерий — смешность.** Если жёсткий/стильный вариант проигрывает по смешности менее стильному — выбирается более смешной.
+Write jokes using subagents as a simulated audience. Two agents generate raw material, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style (лютый разъеб, от первого лица, без пощады). **На любом этапе главный критерий — смешность.** Если жёсткий/стильный вариант проигрывает по смешности менее стильному — выбирается более смешной.
 
 ## Process
 
-### Step 0: Dispatch Разгонятор for raw angles
+### Step 0: Dispatch Разгонятор and Конч for raw material
 
-Read `razgonyator-prompt.md` and dispatch it first.
+Dispatch both generators first. They are independent - fire them in the same
+block so they run in parallel.
+
+1. `razgonyator-prompt.md` - finds the angriest, most humiliating angles
+2. `konch-prompt.md` - finds the filthiest, most amoral, most unhinged ones
+
+For each:
 - Replace `[TOPIC]` with the user's topic
 - Leave `[JOKES]` empty on the first pass (no material exists yet)
 
-This produces a list of first-person angles/premises on the topic - not jokes,
-just raw material to seed the writer with directions beyond the obvious.
+Together they produce first-person angles/premises - not jokes, just raw
+material to seed the writer with directions beyond the obvious. Разгонятор
+covers the territory a smart writer would reach eventually; Конч covers the
+territory a writer self-censors before the page.
+
+Конч's list is ore, not output. Most of it is unusable and that is expected -
+the writer keeps only what is genuinely funny. Never show Конч's raw list to
+the user, and never let "it was shocking" substitute for "it was funny."
 
 ### Step 1: Dispatch the writer
 
 Read `writer-prompt.md` and use that template to dispatch a subagent.
 - Replace `[TOPIC]` with the user's topic
-- Include the angles from Разгонятор as extra inspiration alongside the topic
+- Include the angles from Разгонятор and Конч as extra inspiration alongside
+  the topic, labeled by source, with a note that the writer takes only what
+  lands and discards the rest
 - For first draft, omit the revision section
 - Do not add extra style instructions of your own - the house style lives
   inside `writer-prompt.md` and must be passed through unmodified
@@ -46,11 +60,15 @@ actual laughs: a line that's stylistically off but genuinely killed with the
 audience beats a stylistically pure line that landed flat. When in doubt,
 пойди на смешное — style is a means, not the goal.
 
-### Step 3.5: Re-dispatch Разгонятор if material feels stale
+### Step 3.5: Re-dispatch the generators if material feels stale
 
 If the synthesized feedback suggests the jokes are hacky/derivative (especially
 from the skeptic), dispatch `razgonyator-prompt.md` again with the current
 `[JOKES]` filled in, so it generates angles that avoid what's already been tried.
+
+If the material feels safe, polite, or toothless rather than merely derivative,
+re-dispatch `konch-prompt.md` the same way - that is the failure mode it exists
+to fix.
 
 ### Step 4: Dispatch writer again with feedback
 
@@ -58,7 +76,7 @@ Use `writer-prompt.md` again, this time:
 - Include the revision section
 - Replace `[FEEDBACK]` with the synthesized audience reactions,
   КВН-флаги listed first
-- Include any new angles from a re-dispatched Разгонятор
+- Include any new angles from a re-dispatched Разгонятор or Конч
 
 ### Step 5: Repeat steps 2-4 until the jokes land
 
@@ -69,11 +87,13 @@ with another pass - not just when the skeptic raises zero КВН-флаги.
 
 ### Step 6: Present final material to user
 
-Include a brief summary of how it evolved - what got cut, what emerged from iteration, which angles came from Разгонятор, and which КВН-флаги were fixed.
+Include a brief summary of how it evolved - what got cut, what emerged from iteration, which angles came from Разгонятор or Конч, and which КВН-флаги were fixed.
 
 ## Critical Rules
 
 - **Always use Task tool** - Never shell out to `claude` CLI
+- **Dispatch both generators in parallel** - Разгонятор and Конч are independent; fire them in one block
 - **Dispatch audience in series** - One at a time, so each reaction is visible
 - **Include feedback in revisions** - The writer needs to know what to fix
-- **Funniest wins, always** - At every decision point (writing, revising, choosing between drafts), the funniest option wins over the stylistically purest, edgiest, or safest one
+- **Конч is ore, not output** - His raw list never goes to the user; the writer keeps only what actually lands
+- **Funniest wins, always** - At every decision point (writing, revising, choosing between drafts), the funniest option wins over the stylistically purest, edgiest, or safest one. This governs Конч too: filth that does not get a laugh is cut like anything else

@@ -1,6 +1,8 @@
 # Comedy Writers Room
 
-A Claude Code skill that demonstrates subagents by having one write jokes while three others play audience members reacting to them.
+A Claude Code skill that demonstrates subagents by having two generate raw angles, one write jokes, and four more play audience members reacting to them.
+
+The two generators split the work: **Разгонятор** finds the angriest, most humiliating angles on a topic; **Конч** finds the filthiest and most amoral ones. Both produce ore, not jokes - the writer keeps only what actually lands.
 
 Video walkthrough of how to use this:
 
@@ -32,9 +34,9 @@ Say you're in a ChatGPT conversation (e.g. plan a surf trip), but you need to re
 
 Watch from two camera angles:
 
-1. **The terminal** — you can see Claude Code spawn a "writer" subagent, then three "audience" subagents
+1. **The terminal** — you can see Claude Code spawn the two generator subagents, then a "writer" subagent, then four "audience" subagents
 
-2. **The files on your computer** — navigate to `~/.claude/projects` and watch Claude Code create the main thread, writer subagent, three audience subagents, and another writer subagent to act on their feedback.
+2. **The files on your computer** — navigate to `~/.claude/projects` and watch Claude Code create the main thread, two generator subagents, a writer subagent, four audience subagents, and another writer subagent to act on their feedback.
 
 Even though these look like scary "JSONL" files, they're just text files containing chat history, human-readable if you open them with this [prettifier extension](https://marketplace.visualstudio.com/items?itemName=gabor.jsonl-gazelle).
 
@@ -44,7 +46,7 @@ Text files all the way down.
 
 ## Note on iteration limit
 
-This repository currently limits feedback to just one round (three personas react once, writer revises once). This keeps demos short.
+This repository currently limits feedback to just one round (the personas react once, writer revises once). This keeps demos short.
 
 To let it keep iterating agentically until the jokes actually land, remove this line from SKILL.md:
 

@@ -5,9 +5,28 @@ description: Use when helping write stand-up comedy, jokes, or humorous material
 
 # Comedy Writers Room
 
-Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style (лютый разъеб, от первого лица, без пощады). **На любом этапе главный критерий — смешность.** Если жёсткий/стильный вариант проигрывает по смешности менее стильному — выбирается более смешной.
+Write jokes using subagents as a simulated audience. One agent finds unexpected angles, one writes, four agents react as different personas, then iterate based on their feedback. The writer works in a fixed house style: сухой бытовой стендап от первого лица с грязной абсурдной логикой и спокойной подачей. **На любом этапе главный критерий — смешность.** Если жёсткий/стильный вариант проигрывает по смешности менее стильному — выбирается более смешной.
 
 ## Process
+
+### Failure protocol: stop rewriting the user's voice
+
+If the user rejects two substantially different drafts, stop producing full
+rewrites. Do not ask them to restate the same request and do not defend the
+output with joke counts. Repeated rejection means the room has not calibrated
+to the performer's voice, even if its internal audit passed.
+
+Return to the user's original material and identify, without rewriting it:
+
+1. lines already written by the user that sound unmistakably like them;
+2. lines that reportedly earned live laughs, if that information exists;
+3. connective tissue that can be cut without changing voice;
+4. no more than three places where a new tag is actually needed.
+
+Then offer surgical editing in small batches. Change one beat at a time and show
+the original beside the proposed edit. Do not generate another complete persona,
+premise, or narrative until the user approves the direction. Live audience
+results and the performer's taste override every rubric in this skill.
 
 ### Step 0: Dispatch Разгонятор for raw angles
 
@@ -62,10 +81,30 @@ Use `writer-prompt.md` again, this time:
 
 ### Step 5: Repeat steps 2-4 until the jokes land
 
-Stop when the personas are laughing hardest and the material can't get funnier
-with another pass - not just when the skeptic raises zero КВН-флаги.
+Run the number of passes the user requests. If no count is requested, run at
+least two revision passes. A pass is complete only after the writer receives
+specific line-level feedback and rewrites the material; merely dispatching a
+persona does not count as a pass.
 
-**TESTING: Limit to 1 round of feedback for now.**
+After every draft, perform a punch-density audit before asking the audience:
+
+- Mark every sentence that contains an actual laugh mechanism: reversal,
+  misdirection, act-out, escalation, analogy, callback, rule of three, or a
+  sharply specific reveal.
+- Prefer a concrete fact followed by a literal reading and a wrong but internally
+  consistent conclusion. Reward calm bureaucratic, medical, or educational
+  wording applied to sex, profanity, and domestic squalor.
+- Treat attitude, insults, plot, vivid description, and profanity without a
+  mechanism as setup, not as jokes.
+- Verify that the draft preserves the user's facts. Comic escalation may invent
+  imagined consequences, but must not rewrite the triggering events.
+- Reject a draft if any paragraph has no marked laugh or if more than two setup
+  sentences occur consecutively.
+- Do not let a recurring metaphor substitute for jokes. Each return to the
+  premise must introduce a new comic turn, not merely rename the next plot beat.
+
+Stop only when the requested passes are complete and the final draft passes the
+punch-density audit. Zero КВН-флаги is not enough.
 
 ### Step 6: Present final material to user
 
@@ -77,3 +116,8 @@ Include a brief summary of how it evolved - what got cut, what emerged from iter
 - **Dispatch audience in series** - One at a time, so each reaction is visible
 - **Include feedback in revisions** - The writer needs to know what to fix
 - **Funniest wins, always** - At every decision point (writing, revising, choosing between drafts), the funniest option wins over the stylistically purest, edgiest, or safest one
+- **Count rewrites, not agents** - Never describe audience dispatches or raw-angle generation as completed orchestration passes
+- **No prose disguised as comedy** - A coherent story, an angry voice, or an extended metaphor is not a joke unless individual lines contain laugh mechanisms
+- **Dry delivery** - Do not confuse shouting, cruelty, decorative comparisons, or sitcom dialogue with comic force; the narrator states absurd conclusions as routine facts
+- **Repeated rejection overrides the workflow** - After two rejected drafts, stop full rewrites and calibrate through small, reversible edits to the user's own lines
+- **Preserve the performer** - Never improve structure by replacing the user's recognizable voice with a generic comedy persona

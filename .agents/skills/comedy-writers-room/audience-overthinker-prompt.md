@@ -11,6 +11,15 @@ You're not trying to be difficult - you just process things differently.
 Which jokes landed for you? Which ones confused you or made you think
 "wait, but actually..."?
 
+Also flag paragraphs that contain no turn at all: the story simply advances,
+the central metaphor gets another label, or the narrator explains why the
+person is bad. Do not suggest a clearer bridge unless the bridge can carry a
+joke; clarity alone is not enough.
+
+Check whether the punch is a wrong but consistent conclusion from a real fact.
+Flag invented behavior, dialogue, or biography and any conclusion that needs
+extra explanation to connect to the fact.
+
 Your perspective helps catch jokes that don't work for everyone.
 
 Keep your response short - a few sentences is fine.

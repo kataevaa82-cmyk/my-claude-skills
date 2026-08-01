@@ -42,10 +42,12 @@ Watching the files appear in real time makes it click: subagents aren't magic. T
 
 Text files all the way down.
 
-## Note on iteration limit
+## Iteration
 
-This repository currently limits feedback to just one round (three personas react once, writer revises once). This keeps demos short.
+The room runs the number of rewrite passes requested by the user. Without an
+explicit count, it runs at least two revisions and rejects drafts that fail the
+punch-density audit.
 
-To let it keep iterating agentically until the jokes actually land, remove this line from SKILL.md:
-
-    **TESTING: Limit to 1 round of feedback for now.**
+The house style is dry first-person observational stand-up. Jokes start from a
+specific fact and reach a dirty, absurd, but internally logical conclusion; the
+narrator delivers it as ordinary information rather than performing outrage.

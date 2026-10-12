@@ -31,3 +31,30 @@ export const loadFonts = (): Promise<void> => {
     });
   return promise;
 };
+
+let nunito: Promise<void> | null = null;
+
+export const NUNITO = 'NunitoReel';
+
+export const loadNunito = (): Promise<void> => {
+  if (nunito) return nunito;
+  const faces: FontFace[] = [];
+  for (const weight of [700, 800, 900]) {
+    for (const [subset, range] of Object.entries(RANGES)) {
+      faces.push(
+        new FontFace(NUNITO, `url(${staticFile(`fonts/nunito-${subset}-${weight}-normal.woff2`)}) format('woff2')`, {
+          weight: String(weight),
+          unicodeRange: range,
+        }),
+      );
+    }
+  }
+  nunito = Promise.all(faces.map((f) => f.load()))
+    .then((loaded) => {
+      loaded.forEach((f) => (document.fonts as unknown as {add: (f: FontFace) => void}).add(f));
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  return nunito;
+};

@@ -198,6 +198,37 @@
     });
     for (const L of layout) merged[L.t].chunkSpc.push(L.c.n);
 
+    // Списки правок первой части: пустая правка (задержка) + начало медиа. Общий старт —
+    // самый поздний из треков; для каждой дорожки пересчитываем media_time так, чтобы
+    // все начинались в 0 и сохранили взаимную синхронность (обрезка AAC-приминга и сдвига B-кадров).
+    const edits = f0.tracks.map((tr) => {
+      const edts = find(tr.trak.children, 'edts');
+      let empty = 0, mt = 0;
+      if (edts) {
+        const d = find(edts.children, 'elst').data;
+        const v = d[0], n = u32(d, 4), es = v === 1 ? 20 : 12;
+        let seenMedia = false;
+        for (let i = 0; i < n; i++) {
+          const o = 8 + i * es;
+          const dur = v === 1 ? u32(d, o) * 4294967296 + u32(d, o + 4) : u32(d, o);
+          const mediaTime = v === 1 ? s32(d, o + 8) * 4294967296 + u32(d, o + 12) : s32(d, o + 4);
+          if (mediaTime < 0 && !seenMedia) empty += dur;
+          else if (!seenMedia) { mt = mediaTime; seenMedia = true; }
+        }
+      }
+      return {empty, mt};
+    });
+    const t0 = Math.max(...edits.map((e) => e.empty));
+    const startMedia = edits.map((e, t) => {
+      let v = e.mt + Math.round(((t0 - e.empty) * f0.tracks[t].timescale) / f0.movieTs);
+      // пустые правки записаны в мс; для AAC приминг кратен кадру в 1024 отсчёта — округляем к нему
+      if (f0.tracks[t].handler === 'soun') {
+        const snap = Math.round(v / 1024) * 1024;
+        if (Math.abs(snap - v) <= 48) v = snap;
+      }
+      return v;
+    });
+
     const buildMoov = (chunkOffsets) => {
       const moov = clone(f0.moov);
       let maxMovieDur = 0;
@@ -206,29 +237,25 @@
         const m = merged[t];
         const ts = f0.tracks[t].timescale;
         const mediaDur = m.deltas.reduce((a, v) => a + v, 0);
-        const movieDur = Math.round((mediaDur * f0.movieTs) / ts);
+        // конец показа с учётом сдвига композиции (B-кадры)
+        let dts = 0, presEnd = 0;
+        m.deltas.forEach((dlt, i) => {
+          const cts = m.ctts ? (f0.tracks[t].cttsVersion === 1 ? m.ctts[i] | 0 : m.ctts[i]) : 0;
+          presEnd = Math.max(presEnd, dts + cts + dlt);
+          dts += dlt;
+        });
+        const movieDur = Math.round(((presEnd - startMedia[t]) * f0.movieTs) / ts);
         maxMovieDur = Math.max(maxMovieDur, movieDur);
         const mdia = find(trak.children, 'mdia');
         const mdhd = find(mdia.children, 'mdhd');
         mdhd.data = setDuration(mdhd.data, mdhd.data[0], 16, 24, mediaDur);
         const tkhd = find(trak.children, 'tkhd');
         tkhd.data = setDuration(tkhd.data, tkhd.data[0], 20, 28, movieDur);
-        const edts = find(trak.children, 'edts');
-        if (edts) {
-          const elst = find(edts.children, 'elst');
-          const d = new Uint8Array(elst.data);
-          const v = d[0], n = u32(d, 4), es = v === 1 ? 20 : 12;
-          for (let i = 0; i < n; i++) {
-            const o = 8 + i * es;
-            const mediaTime = v === 1 ? s32(d, o + 8) * 4294967296 + u32(d, o + 12) : s32(d, o + 4);
-            if (mediaTime >= 0) {
-              const segDur = Math.max(0, Math.round(((mediaDur - mediaTime) * f0.movieTs) / ts));
-              if (v === 1) { d.set(be32(Math.floor(segDur / 4294967296)), o); d.set(be32(segDur >>> 0), o + 4); }
-              else d.set(be32(segDur), o);
-            }
-          }
-          elst.data = d;
-        }
+        // одна правка: без задержки, медиа с общего старта
+        const edtsBox = {type: 'edts', children: [fullBox('elst', 0, [1, movieDur, startMedia[t] >>> 0, 0x00010000])]};
+        const ei = trak.children.findIndex((x) => x.type === 'edts');
+        if (ei >= 0) trak.children[ei] = edtsBox;
+        else trak.children.splice(1, 0, edtsBox);
         const stbl = path(mdia.children, 'minf', 'stbl');
         const keep = stbl.children.filter((x) => x.type === 'stsd');
         const stts = rle(m.deltas);

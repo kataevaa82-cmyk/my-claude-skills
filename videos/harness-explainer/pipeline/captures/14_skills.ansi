@@ -1,0 +1,34 @@
+  - [1mОбщение:[0m вы владелица пекарни, не программист, поэтому я объясняю простыми словами, а непонятные термины
+    поясняю. Тон тёплый и дружелюбный. Рассказываю, что изменилось на странице, а не как это устроено в коде.
+  - [1mСайт:[0m цены только в рублях («120 ₽»). Страница остаётся одним файлом [38;5;153mindex.html[39m в тёплом дизайне и хорошо
+    выглядит на телефоне.
+
+  Если захотите что-то добавить или поменять, скажите, и я поправлю файл.
+
+[38;5;246m✻[39m [38;5;246mChurned for 6s · done 5:01 AM[39m
+[38;5;153m▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
+[39m   [1m[38;5;153mSkills[0m
+   [38;5;246m18 skills · enter/space to cycle, / to search, t to sort, Esc to close[39m
+
+   [2m╭──────────────────────────────────────────────────────────────────────────────────────────────────────╮[0m
+   [2m│[0m [38;5;246m⌕ Search skills…[39m                                                                                     [2m│[0m
+   [2m╰──────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m
+   [38;5;153m❯[39m [38;5;114m✔[39m [38;5;153manthropic-skills:deep-research[39m   [38;5;246mclaude.ai sync · ~200 tok[39m
+     [38;5;114m✔[39m built-in-browser                 [38;5;246mclaude.ai sync · ~280 tok[39m
+     [38;5;114m✔[39m canvas-design                    [38;5;246mclaude.ai sync · ~110 tok[39m
+     [38;5;114m✔[39m chrome-browser                   [38;5;246mclaude.ai sync · ~260 tok[39m
+     [38;5;114m✔[39m computer-use                     [38;5;246mclaude.ai sync · ~320 tok[39m
+     [38;5;114m✔[39m doc-coauthoring                  [38;5;246mclaude.ai sync · ~150 tok[39m
+     [38;5;114m✔[39m docs                             [38;5;246mclaude.ai sync · ~340 tok[39m
+     [38;5;114m✔[39m docx                             [38;5;246mclaude.ai sync · ~320 tok[39m
+     [38;5;114m✔[39m google-workspace                 [38;5;246mclaude.ai sync · ~330 tok[39m
+     [38;5;114m✔[39m import-memory                    [38;5;246mclaude.ai sync · ~60 tok[39m
+     [38;5;114m✔[39m morning                          [38;5;246mclaude.ai sync · ~120 tok[39m
+     [38;5;114m✔[39m pdf                              [38;5;246mclaude.ai sync · ~150 tok[39m
+     [38;5;114m✔[39m pptx                             [38;5;246mclaude.ai sync · ~330 tok[39m
+     [38;5;114m✔[39m qms-status-builder               [38;5;246mclaude.ai sync · ~270 tok[39m
+     [38;5;114m✔[39m skill-creator                    [38;5;246mclaude.ai sync · ~120 tok[39m
+     [38;5;114m✔[39m standup-comedian                 [38;5;246mclaude.ai sync · ~290 tok[39m
+     [38;5;246m↓ 2 more[39m
+
+   [38;5;246m/deep-research runs a workflow, not your claude.ai skill.[39m

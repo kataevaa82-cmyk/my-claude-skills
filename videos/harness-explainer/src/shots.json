@@ -1,0 +1,54 @@
+{
+ "shots/bakery.png": {
+  "w": 1440,
+  "h": 1400
+ },
+ "shots/context.png": {
+  "w": 2256,
+  "h": 899
+ },
+ "shots/loop.png": {
+  "w": 2256,
+  "h": 1062
+ },
+ "shots/memory_perm.png": {
+  "w": 2256,
+  "h": 1398
+ },
+ "shots/perm_write.png": {
+  "w": 2256,
+  "h": 978
+ },
+ "shots/recall.png": {
+  "w": 2256,
+  "h": 1272
+ },
+ "shots/security.png": {
+  "w": 2256,
+  "h": 1188
+ },
+ "shots/skills.png": {
+  "w": 2256,
+  "h": 1109
+ },
+ "shots/tools.png": {
+  "w": 2256,
+  "h": 899
+ },
+ "shots/trust.png": {
+  "w": 2256,
+  "h": 726
+ },
+ "shots/welcome.png": {
+  "w": 2256,
+  "h": 311
+ },
+ "shots/wrote.png": {
+  "w": 2256,
+  "h": 1277
+ },
+ "shots/prompt.png": {
+  "w": 2256,
+  "h": 558
+ }
+}

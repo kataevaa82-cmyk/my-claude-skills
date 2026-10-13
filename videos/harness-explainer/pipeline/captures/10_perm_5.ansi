@@ -1,0 +1,34 @@
+[38;5;246m●[39m Running cd /tmp/claude-0/-home-user--------/f2433a8b-398f…
+[38;5;246m  ⎿  $ cd /tmp/claude-0/-home-user--------/f2433a8b-398f-59d8-ae58-366d6541b165/scratchpad && cat > m.js [39m
+     [38;5;246m<<'EOF'[39m
+     [38;5;246mconst { chromium } = require('/opt/node22/lib/node_modules/playwright');[39m
+     [38;5;246m(async () => {[39m
+     [38;5;246mconst b = await chromium.launch({ args: ['--no-sandbox'] });[39m
+     [38;5;246mconst p = await b.newPage({ viewport: { wi…[39m
+
+[38;5;153m──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+[39m [1m[38;5;153mBash command[0m
+ [1mTip: auto mode handles these prompts for you — choose "switch to auto mode" below[0m
+ [38;5;246mRun shell command[39m
+[38;5;239m╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+[39m [2m│[0m cd /tmp/claude-0/-home-user--------/f2433a8b-398f-59d8-ae58-366d6541b165/scratchpad && cat > m.js <<'EOF'
+ [2m│[0m const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+ [2m│[0m (async () => {
+ [2m│[0m   const b = await chromium.launch({ args: ['--no-sandbox'] });
+ [2m│[0m   const p = await b.newPage({ viewport: { width: 390, height: 900 } });
+ [2m│[0m   await p.goto('file:///home/user/пекарня/index.html');
+ [2m│[0m   console.log(await p.evaluate(() => [document.documentElement.scrollWidth, innerWidth]));
+ [2m│[0m   await p.screenshot({ path: 'm390.png', fullPage: true });
+ [2m│[0m   await b.close();
+ [2m│[0m })();
+ [2m│[0m EOF
+ [2m│[0m node m.js
+[38;5;239m╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+[39m Contains brace with quote character (expansion obfuscation)
+
+ Do you want to proceed?
+ [38;5;153m❯[39m [38;5;246m1. [38;5;153mYes[39m
+   [38;5;246m2. [39mYes, and switch to auto mode[38;5;246m · auto mode handles these prompts for you[39m
+   [38;5;246m3. [39mNo
+
+ [38;5;246mEsc to cancel · Tab to amend[39m

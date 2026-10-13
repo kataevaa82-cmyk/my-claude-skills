@@ -4,3 +4,4 @@ public/audio/
 pipeline/__pycache__/
 pipeline/.cache/
 *.mp3
+*.mp4

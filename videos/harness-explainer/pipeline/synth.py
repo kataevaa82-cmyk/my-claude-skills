@@ -25,13 +25,14 @@ FPS = 30
 SR = 48000
 # движок озвучки: yandex (SpeechKit, нужен YANDEX_API_KEY) или rhvoice (офлайн)
 ENGINE = os.environ.get("TTS_ENGINE", "yandex" if os.environ.get("YANDEX_API_KEY") else "rhvoice")
-VOICE = os.environ.get("TTS_VOICE", "alena" if ENGINE == "yandex" else "tatiana")
+VOICE = os.environ.get("TTS_VOICE", "alena" if ENGINE == "yandex" else "mikhail")
+RATE = os.environ.get("TTS_RATE", "100")  # скорость RHVoice, %
 EMOTION = os.environ.get("TTS_EMOTION", "good")
 SPEED = os.environ.get("TTS_SPEED", "1.0")
 CACHE = os.path.join(HERE, ".cache")
 os.makedirs(CACHE, exist_ok=True)
 
-GAP = 0.38          # пауза между фразами внутри сцены
+GAP = 0.42          # пауза между фразами внутри сцены
 LEAD = 0.55         # тишина в начале сцены
 TAIL = 0.75         # тишина в конце сцены
 CH_LEAD, CH_TAIL = 0.9, 1.3   # для карточек глав
@@ -62,18 +63,18 @@ def yandex_raw(text, raw_path):
 
 
 def synth(text):
-    key = hashlib.sha1((ENGINE + "|" + VOICE + "|" + EMOTION + "|" + SPEED + "|" + text).encode()).hexdigest()[:16]
+    key = hashlib.sha1((ENGINE + "|" + VOICE + "|" + EMOTION + "|" + SPEED + "|" + RATE + "|" + text).encode()).hexdigest()[:16]
     out = os.path.join(CACHE, key + ".wav")
     if not os.path.exists(out):
         raw = out + ".raw.wav"
         if ENGINE == "yandex":
             yandex_raw(text, raw)
         else:
-            subprocess.run(["RHVoice-test", "-q", "max", "-p", VOICE, "-o", raw], input=text.encode(), check=True)
+            subprocess.run(["RHVoice-test", "-q", "max", "-p", VOICE, "-r", RATE, "-o", raw], input=text.encode(), check=True)
         # 24 кГц → 48 кГц, срез НЧ-гула, лёгкое «присутствие», обрезка тишины по краям
         subprocess.run([
             "ffmpeg", "-v", "error", "-y", "-i", raw, "-af",
-            "aresample=48000:resampler=soxr,highpass=f=70,equalizer=f=3200:t=q:w=1.2:g=2.0,"
+            "aresample=48000:resampler=soxr,"
             "silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.02,"
             "areverse,silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.05,areverse",
             "-ac", "1", "-ar", str(SR), "-c:a", "pcm_s16le", out], check=True)
@@ -145,9 +146,13 @@ def main():
     with wave.open(tmp, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
         w.writeframes((np.clip(track, -1, 1) * 32767).astype(np.int16).tobytes())
-    # единая громкость речи (-18 LUFS, остальное доберёт мастер-шина)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-af",
-                    "acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120:makeup=2,loudnorm=I=-18:TP=-2:LRA=9",
+    # тембр: срез НЧ-гула и «жужжания» вокодера, тепло и разборчивость, де-эссер, компрессия,
+    # немного «комнаты» (свёртка с коротким импульсом), единая громкость -18 LUFS
+    chain = ("highpass=f=75,lowpass=f=9500,equalizer=f=170:t=q:w=1:g=2,equalizer=f=2800:t=q:w=1.2:g=1.5,"
+             "equalizer=f=6500:t=q:w=1.5:g=-3,deesser=i=0.4,acompressor=threshold=-22dB:ratio=2.5:attack=6:release=120:makeup=2")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-i", os.path.join(HERE, "room_ir.wav"), "-filter_complex",
+                    f"[0]{chain},asplit[d][w];[1]pan=mono|c0=c0[ir];[w][ir]afir=dry=0:wet=1[r];"
+                    "[d][r]amix=inputs=2:weights='1 0.18':normalize=0,loudnorm=I=-18:TP=-2:LRA=9",
                     "-ar", str(SR), "-ac", "1", os.path.join(ROOT, "public/audio/voice.wav")], check=True)
     # отметки речи для приглушения музыки
     speech = [(p[0], p[0] + len(p[1]) / SR) for p in pieces]

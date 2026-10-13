@@ -188,7 +188,7 @@ export const Outro: React.FC<any> = () => {
         За каждым умным помощником — не только сильная модель, но и <span style={{color: C.amber}}>хорошая упряжь</span>
       </div>
       <div style={{position: 'absolute', bottom: 190, opacity: p3, fontSize: 22, color: C.faint, fontWeight: 600, textAlign: 'center', lineHeight: 1.7}}>
-        Скриншоты: Claude Code · Музыка сгенерирована кодом · Анимация: Remotion
+        Голос: RHVoice «Михаил» · Скриншоты: Claude Code · Музыка сгенерирована кодом · Анимация: Remotion
       </div>
     </AbsoluteFill>
   );

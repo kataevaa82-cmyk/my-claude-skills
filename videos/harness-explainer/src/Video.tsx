@@ -177,23 +177,44 @@ export const HarnessMark: React.FC<{size?: number; color?: string}> = ({size = 2
   </svg>
 );
 
-/** Субтитры: фраза режется на куски ≤ 2 строк, время делится пропорционально длине. */
+/** Субтитры: фраза режется на n сбалансированных кусков (≤ ~2 строк), предпочтительно по знакам препинания. */
 const splitCaption = (text: string, maxLen = 92): string[] => {
   if (text.length <= maxLen) return [text];
   const words = text.split(' ');
-  const parts: string[] = [];
-  let cur = '';
   const n = Math.ceil(text.length / maxLen);
   const target = text.length / n;
-  for (const w of words) {
-    const cand = cur ? cur + ' ' + w : w;
-    const strongBreak = /[.!?…»]$/.test(cur) || /[,:;—]$/.test(cur);
-    if (cur && (cand.length > maxLen || (cur.length > target * 0.8 && strongBreak && parts.length < n - 1))) {
-      parts.push(cur);
-      cur = w;
-    } else cur = cand;
+  const W = words.length;
+  // префиксные длины
+  const pre = [0];
+  words.forEach((w) => pre.push(pre[pre.length - 1] + w.length + 1));
+  const len = (i: number, j: number) => pre[j] - pre[i] - 1;
+  const cost = (i: number, j: number) => {
+    const l = len(i, j);
+    let c = (l - target) ** 2;
+    if (l > maxLen + 12) c += 1e6;
+    if (j < W && !/[.!?…»,:;—]$/.test(words[j - 1])) c += 220;
+    if (j < W && /[.!?…]$/.test(words[j - 1])) c -= 120;
+    return c;
+  };
+  const best: number[][] = Array.from({length: n + 1}, () => Array(W + 1).fill(Infinity));
+  const from: number[][] = Array.from({length: n + 1}, () => Array(W + 1).fill(-1));
+  best[0][0] = 0;
+  for (let k = 1; k <= n; k++)
+    for (let j = 1; j <= W; j++)
+      for (let i = k - 1; i < j; i++) {
+        const v = best[k - 1][i] + cost(i, j);
+        if (v < best[k][j]) {
+          best[k][j] = v;
+          from[k][j] = i;
+        }
+      }
+  const parts: string[] = [];
+  let j = W;
+  for (let k = n; k > 0; k--) {
+    const i = from[k][j];
+    parts.unshift(words.slice(i, j).join(' '));
+    j = i;
   }
-  if (cur) parts.push(cur);
   return parts;
 };
 
@@ -296,7 +317,7 @@ const SceneShell: React.FC<{scene: SceneData}> = ({scene}) => {
 };
 
 export const Video: React.FC = () => (
-  <AbsoluteFill style={{background: C.bg}}>
+  <AbsoluteFill style={{background: C.bg, color: C.text, fontFamily: FONT.body}}>
     <Background />
     {scenes.map((s) => (
       <Sequence key={s.id} from={s.start} durationInFrames={s.duration} name={s.id}>

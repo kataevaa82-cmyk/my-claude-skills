@@ -212,9 +212,9 @@ export const CustomInstructions: React.FC<any> = ({cardAt, textAt, linkAt, rules
   const at = useAt();
   const link = useAppear(linkAt);
   return (
-    <Stage style={{alignItems: 'center'}}>
+    <Stage style={{alignItems: 'center', justifyContent: 'center'}}>
       <Appear at={cardAt} from="bottom" style={{width: 1200}}>
-        <Window title="Настройки · Постоянные инструкции" style={{height: 500}}>
+        <Window title="Настройки · Постоянные инструкции" style={{height: 470}}>
           <div style={{padding: 34}}>
             <div style={{fontSize: 24, fontWeight: 700, color: C.dim}}>⚙️ Что помощник должен знать во всех разговорах:</div>
             <div style={{marginTop: 18, borderRadius: 16, border: `2px solid ${alpha(C.amber, 0.5)}`, background: 'rgba(255,255,255,0.04)', padding: '22px 26px', fontSize: 31, lineHeight: 1.6, fontWeight: 600, minHeight: 260}}>

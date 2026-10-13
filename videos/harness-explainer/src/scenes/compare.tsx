@@ -158,8 +158,8 @@ export const TripCompare: React.FC<any> = ({title, request, requestAt, leftAt, r
           </Bubble>
         </div>
       </Appear>
-      <Appear at={leftAt} from="left" style={{position: 'absolute', left: 110, top: 330, width: 560}}>
-        <Card accent="#9AA0B5" style={{height: 500}}>
+      <Appear at={leftAt} from="left" style={{position: 'absolute', left: 110, top: 300, width: 560}}>
+        <Card accent="#9AA0B5" style={{height: 560}}>
           <div style={{fontFamily: FONT.display, fontSize: 27, fontWeight: 600, color: '#B5BACB'}}>💬 Модель без инструментов</div>
           <div style={{marginTop: 24}}>
             <Bubble who="ai" style={{fontSize: 25}}>
@@ -169,17 +169,17 @@ export const TripCompare: React.FC<any> = ({title, request, requestAt, leftAt, r
           <div style={{position: 'absolute', bottom: 28, left: 32, right: 32, fontSize: 23, color: C.faint, fontWeight: 700}}>Полезно, но работу делать вам</div>
         </Card>
       </Appear>
-      <Appear at={rightAt} from="right" style={{position: 'absolute', left: 710, right: 110, top: 330}}>
-        <Card accent={C.green} glow={0.5} style={{height: 500}}>
+      <Appear at={rightAt} from="right" style={{position: 'absolute', left: 710, right: 110, top: 300}}>
+        <Card accent={C.green} glow={0.5} style={{height: 560}}>
           <div style={{fontFamily: FONT.display, fontSize: 27, fontWeight: 600, color: C.green}}>🤖 Та же модель + харнесс</div>
-          <div style={{marginTop: 18, display: 'flex', flexDirection: 'column', gap: 10}}>
+          <div style={{marginTop: 14, display: 'flex', flexDirection: 'column', gap: 2}}>
             {steps.map((s: any, i: number) => {
               const f0 = at(s.at) + (i > 0 && steps[i - 1].at === s.at ? 30 : 0);
               const vis = interpolate(frame, [f0, f0 + 10], [0, 1], clamp);
               const done = interpolate(frame, [f0 + 30, f0 + 42], [0, 1], clamp);
               const col = s.warn ? C.amber : C.green;
               return (
-                <div key={i} style={{display: 'flex', alignItems: 'center', gap: 14, opacity: vis, transform: `translateX(${(1 - vis) * 20}px)`, fontSize: 25, fontWeight: 600, padding: '8px 14px', borderRadius: 14, background: s.warn ? alpha(C.amber, 0.12) : 'transparent'}}>
+                <div key={i} style={{display: 'flex', alignItems: 'center', gap: 14, opacity: vis, transform: `translateX(${(1 - vis) * 20}px)`, fontSize: 24, fontWeight: 600, padding: '6px 14px', borderRadius: 14, background: s.warn ? alpha(C.amber, 0.12) : 'transparent'}}>
                   <div style={{width: 34}}>{done > 0 ? <Check p={done} color={col} size={32} /> : <Spinner size={28} color={col} />}</div>
                   <Emoji e={s.icon} size={28} />
                   <span style={{color: s.warn ? C.amber : C.text}}>{s.text}</span>
@@ -187,7 +187,7 @@ export const TripCompare: React.FC<any> = ({title, request, requestAt, leftAt, r
               );
             })}
           </div>
-          <div style={{position: 'absolute', left: 30, right: 30, bottom: 24, opacity: tbl, transform: `translateY(${(1 - tbl) * 20}px)`}}>
+          <div style={{marginTop: 14, opacity: tbl, transform: `translateY(${(1 - tbl) * 20}px)`}}>
             <div style={{display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 0.8fr', padding: '6px 16px', fontSize: 19, fontWeight: 800, color: C.faint, letterSpacing: 1}}>
               <span>ОТЕЛЬ</span>
               <span>ЦЕНА/НОЧЬ</span>
@@ -205,8 +205,8 @@ export const TripCompare: React.FC<any> = ({title, request, requestAt, leftAt, r
           </div>
         </Card>
       </Appear>
-      <div style={{position: 'absolute', right: 120, top: 845, fontSize: 18, color: C.faint, fontStyle: 'italic', opacity: tbl}}>{note}</div>
-      <div style={{position: 'absolute', left: 0, right: 0, top: 300, display: 'flex', justifyContent: 'center', opacity: same, pointerEvents: 'none'}}>
+      <div style={{position: 'absolute', right: 120, top: 866, fontSize: 18, color: C.faint, fontStyle: 'italic', opacity: tbl}}>{note}</div>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 270, display: 'flex', justifyContent: 'center', opacity: same, pointerEvents: 'none'}}>
         <div style={{transform: `translateX(-245px) scale(${0.8 + 0.2 * same})`}}>
           <Orb e="🧠" size={90} color={C.violet} pulse={usePulse(30)} />
         </div>

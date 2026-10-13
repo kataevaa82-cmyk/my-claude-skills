@@ -199,8 +199,9 @@ export const TitleCard: React.FC<any> = ({kicker, title, subtitle}) => {
           fontSize: 36,
           fontWeight: 500,
           color: C.dim,
-          maxWidth: 1200,
+          maxWidth: 1100,
           textAlign: 'center',
+          textWrap: 'balance' as any,
           opacity: p3,
           transform: `translateY(${(1 - p3) * 20}px)`,
         }}
@@ -483,7 +484,7 @@ export const Equation: React.FC<any> = ({modelAt, harnessAt, formulaAt, rolesAt,
     </div>
   );
   return (
-    <Stage style={{flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center', paddingTop: 170}}>
+    <Stage style={{flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center', paddingTop: 230}}>
       <Block e="🤖" title="Агент" color={C.green} role="делает настоящую работу" when={formulaAt}>
         <Pill color={C.green} style={{fontSize: 22}}>ищет</Pill>
         <Pill color={C.green} style={{fontSize: 22}}>пишет файлы</Pill>

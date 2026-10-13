@@ -11,10 +11,10 @@ const PAD_Y = 33;
 const ROW = 42;
 const COL = 19.8;
 
-const BODY_W = 1560;
-const BODY_H = 690;
+const BODY_W = 1700;
+const BODY_H = 680;
 const WIN_LEFT = (1920 - BODY_W) / 2;
-const WIN_TOP = 170;
+const WIN_TOP = 160;
 
 type Focus = {at: number; rows?: number[]; zoom?: number; img?: number; y?: number; colCenter?: number};
 type Mark = {at: number; rows: number[]; cols: number[]; color?: string; img?: number; from_?: number};
@@ -128,7 +128,7 @@ export const Shot: React.FC<any> = ({label, images, focus, marks = []}) => {
 
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', left: WIN_LEFT, top: 104, opacity: enter}}>
+      <div style={{position: 'absolute', left: WIN_LEFT, top: 96, opacity: enter}}>
         <Pill color={C.coral} style={{fontSize: 23}}>
           📸 {label}
         </Pill>

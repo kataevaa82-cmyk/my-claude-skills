@@ -135,8 +135,8 @@ export const AgentLoop: React.FC<any> = ({num, title, stepAt, spinAt, fixAt, com
   const frame = useCurrentFrame();
   const at = useAt();
   const cx = 470;
-  const cy = 470;
-  const R = 230;
+  const cy = 560;
+  const R = 205;
   const nodes = [
     {e: '🧠', t: 'Подумать', a: -90, c: C.violet},
     {e: '🛠️', t: 'Сделать', a: 30, c: C.amber},
@@ -176,9 +176,9 @@ export const AgentLoop: React.FC<any> = ({num, title, stepAt, spinAt, fixAt, com
         const d = spinning ? Math.abs(((ang - n.a + 540) % 360) - 180) : 180;
         const lit = spinning ? interpolate(d, [0, 40], [1, 0], clamp) : interpolate(frame, [at(stepAt[i]), at(stepAt[i]) + 10], [0, 1], clamp);
         return (
-          <div key={i} style={{position: 'absolute', left: x - 80, top: y - 80, width: 160, display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: p, transform: `scale(${(0.7 + 0.3 * p) * (1 + 0.08 * lit)})`}}>
+          <div key={i} style={{position: 'absolute', left: x - 130, top: y - 80, width: 260, display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: p, transform: `scale(${(0.7 + 0.3 * p) * (1 + 0.08 * lit)})`}}>
             <Orb e={n.e} size={140} color={n.c} pulse={lit} />
-            <div style={{marginTop: 8, fontFamily: FONT.display, fontWeight: 600, fontSize: 28, color: n.c, background: 'rgba(8,9,15,0.7)', padding: '4px 14px', borderRadius: 12}}>
+            <div style={{marginTop: 8, fontFamily: FONT.display, fontWeight: 600, fontSize: 28, color: n.c, background: 'rgba(8,9,15,0.75)', padding: '4px 14px', borderRadius: 12, whiteSpace: 'nowrap'}}>
               {i + 1}. {n.t}
             </div>
           </div>
@@ -189,7 +189,7 @@ export const AgentLoop: React.FC<any> = ({num, title, stepAt, spinAt, fixAt, com
         <div style={{fontSize: 22, fontWeight: 700, color: C.dim, marginTop: 4}}>пока задача не решена</div>
       </div>
       {/* исправление ошибок */}
-      <div style={{position: 'absolute', left: 900, top: 290, width: 900, opacity: fix, transform: `translateX(${(1 - fix) * 40}px)`}}>
+      <div style={{position: 'absolute', left: 900, top: 300, width: 900, opacity: fix, transform: `translateX(${(1 - fix) * 40}px)`}}>
         <div style={{fontFamily: FONT.display, fontWeight: 600, fontSize: 34, marginBottom: 18}}>Сам исправляет ошибки</div>
         {[
           ['❌', 'Нашёл не тот сайт', '🔎', 'ищет другой'],

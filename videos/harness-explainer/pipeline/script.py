@@ -162,11 +162,8 @@ SCENES = [
     ]),
     dict(id="shot_tools", chapter=3, kind="shot", props=dict(
         label="Скриншот · Claude Code", images=[dict(src="shots/tools.png", at=0)],
-        focus=[
-            dict(at=0, rows=[0, 3], zoom=1.25),
-            dict(at=1, rows=[5, 16], zoom=1.15),
-        ],
-        marks=[dict(at=1, rows=[5, 15], cols=[2, 30], color="accent")],
+        focus=[dict(at=0, rows=[0, 3]), dict(at=1, rows=[4, 16])],
+        marks=[dict(at=1, rows=[5, 15], cols=[1, 108], color="accent")],
     ), lines=[
         "А вот как это выглядит в настоящем харнессе. Это Claude Code, и мы просто спросили его: «Какие инструменты у тебя сейчас есть?»",
         "Читать файлы, править их, создавать новые, выполнять команды, искать в интернете, задавать вам вопросы. Каждая строчка — это отдельный инструмент, который харнесс выдал модели.",
@@ -183,16 +180,11 @@ SCENES = [
     ]),
     dict(id="shot_loop", chapter=3, kind="shot", props=dict(
         label="Скриншот · Claude Code", images=[dict(src="shots/loop.png", at=0)],
-        focus=[
-            dict(at=0, rows=[0, 2], zoom=1.3),
-            dict(at=1, rows=[3, 8], zoom=1.25),
-            dict(at=2, rows=[9, 13], zoom=1.25),
-            dict(at=3, rows=[14, 20], zoom=1.15),
-        ],
+        focus=[dict(at=0, rows=[0, 2]), dict(at=1, rows=[3, 8]), dict(at=2, rows=[9, 13]), dict(at=3, rows=[14, 20])],
         marks=[
-            dict(at=1, rows=[5, 5], cols=[2, 64], color="accent"),
-            dict(at=2, rows=[9, 10], cols=[2, 100], color="warn"),
-            dict(at=3, rows=[14, 14], cols=[2, 70], color="ok"),
+            dict(at=1, rows=[5, 5], cols=[1, 108], color="accent"),
+            dict(at=2, rows=[9, 10], cols=[1, 108], color="warn"),
+            dict(at=3, rows=[14, 14], cols=[1, 108], color="ok"),
         ],
     ), lines=[
         "Посмотрите на настоящий цикл. Мы попросили Claude Code проверить страничку, которую он сам только что сделал.",
@@ -211,14 +203,10 @@ SCENES = [
     ]),
     dict(id="shot_context", chapter=3, kind="shot", props=dict(
         label="Скриншот · Claude Code · /context", images=[dict(src="shots/context.png", at=0)],
-        focus=[
-            dict(at=0, rows=[0, 12], zoom=1.05),
-            dict(at=1, rows=[6, 11], zoom=1.3, colCenter=70),
-            dict(at=2, rows=[2, 15], zoom=1.05),
-        ],
+        focus=[dict(at=0, rows=[0, 12]), dict(at=1, rows=[6, 11], zoom=1.3, colCenter=62), dict(at=2, rows=[2, 15])],
         marks=[
-            dict(at=1, rows=[7, 10], cols=[42, 80], color="accent"),
-            dict(at=2, rows=[11, 12], cols=[42, 80], color="ok"),
+            dict(at=1, rows=[7, 10], cols=[42, 82], color="accent"),
+            dict(at=2, rows=[11, 12], cols=[42, 100], color="ok"),
         ],
     ), lines=[
         "А так рабочий стол выглядит в Claude Code. Команда /context показывает, чем он сейчас занят.",
@@ -237,14 +225,15 @@ SCENES = [
     dict(id="shot_memory", chapter=3, kind="shot", props=dict(
         label="Скриншот · Claude Code", images=[dict(src="shots/memory_perm.png", at=0), dict(src="shots/recall.png", at=2)],
         focus=[
-            dict(at=0, rows=[0, 2], zoom=1.3),
-            dict(at=1, rows=[3, 31], zoom=1.0),
-            dict(at=2, rows=[0, 8], zoom=1.25, img=1),
-            dict(at=3, rows=[9, 22], zoom=1.15, img=1),
+            dict(at=0, rows=[0, 3]),
+            dict(at=1, rows=[9, 30]),
+            dict(at=2, rows=[0, 9], img=1),
+            dict(at=3, rows=[9, 22], img=1),
         ],
         marks=[
+            dict(at=0, rows=[0, 1], cols=[1, 108], color="accent"),
             dict(at=1, rows=[25, 25], cols=[1, 40], color="warn"),
-            dict(at=3, rows=[12, 14], cols=[2, 100], color="ok", img=1),
+            dict(at=3, rows=[12, 14], cols=[1, 108], color="ok", img=1),
         ],
     ), lines=[
         "Вот как это работает на деле. Мы написали агенту: «Запомни: я владелица пекарни, не программист. Объясняй просто, цены всегда в рублях».",
@@ -268,15 +257,15 @@ SCENES = [
     dict(id="shot_perm", chapter=3, kind="shot", props=dict(
         label="Скриншот · Claude Code", images=[dict(src="shots/perm_write.png", at=0), dict(src="shots/trust.png", at=2), dict(src="shots/security.png", at=3)],
         focus=[
-            dict(at=0, rows=[8, 21], zoom=1.15),
-            dict(at=1, rows=[16, 21], zoom=1.35),
-            dict(at=2, rows=[0, 15], zoom=1.05, img=1),
-            dict(at=3, rows=[16, 26], zoom=1.3, img=2),
+            dict(at=0, rows=[8, 21]),
+            dict(at=1, rows=[10, 21]),
+            dict(at=2, rows=[0, 15], img=1),
+            dict(at=3, rows=[16, 26], img=2),
         ],
         marks=[
-            dict(at=0, rows=[16, 16], cols=[1, 36], color="warn"),
-            dict(at=1, rows=[17, 20], cols=[1, 104], color="accent"),
-            dict(at=2, rows=[12, 14], cols=[1, 30], color="warn", img=1),
+            dict(at=0, rows=[15, 15], cols=[1, 36], color="warn"),
+            dict(at=1, rows=[16, 19], cols=[1, 108], color="accent"),
+            dict(at=2, rows=[5, 8], cols=[1, 108], color="warn", img=1),
             dict(at=3, rows=[19, 21], cols=[1, 64], color="warn", img=2),
         ],
     ), lines=[
@@ -372,20 +361,20 @@ SCENES = [
         label="Пример 3 · Сайт для пекарни · настоящие скриншоты",
         images=[dict(src="shots/prompt.png", at=0), dict(src="shots/perm_write.png", at=2.6), dict(src="shots/wrote.png", at=3), dict(src="shots/bakery.png", at=4, kind="browser")],
         focus=[
-            dict(at=0, rows=[0, 11], zoom=1.0),
-            dict(at=1, rows=[0, 3], zoom=1.35),
-            dict(at=2, rows=[7, 9], zoom=1.25),
-            dict(at=2.6, rows=[14, 21], zoom=1.2, img=1),
-            dict(at=3, rows=[0, 11], zoom=1.15, img=2),
-            dict(at=3.5, rows=[13, 27], zoom=1.05, img=2),
-            dict(at=4, zoom=1.0, img=3, y=0.3),
-            dict(at=5, zoom=1.12, img=3, y=0.55),
+            dict(at=0, rows=[0, 11]),
+            dict(at=1, rows=[0, 4], zoom=1.3),
+            dict(at=2, rows=[6, 11]),
+            dict(at=2.6, rows=[8, 21], img=1),
+            dict(at=3, rows=[0, 14], img=2),
+            dict(at=3.5, rows=[13, 28], img=2),
+            dict(at=4, img=3, y=0.3),
+            dict(at=5, zoom=1.1, img=3, y=0.55),
         ],
         marks=[
-            dict(at=2, rows=[7, 8], cols=[2, 100], color="accent"),
-            dict(at=2.6, rows=[16, 16], cols=[1, 36], color="warn", img=1),
+            dict(at=2, rows=[8, 9], cols=[1, 108], color="accent"),
+            dict(at=2.6, rows=[15, 15], cols=[1, 36], color="warn", img=1),
             dict(at=3, rows=[0, 0], cols=[2, 36], color="ok", img=2),
-            dict(at=3.5, rows=[25, 26], cols=[2, 100], color="warn", img=2),
+            dict(at=3.5, rows=[25, 26], cols=[1, 108], color="warn", img=2),
         ],
     ), lines=[
         "Пример третий — для тех, кто хочет сделать что-то своё, даже не умея программировать.",
@@ -414,8 +403,8 @@ SCENES = [
     ]),
     dict(id="shot_skills", chapter=6, kind="shot", props=dict(
         label="Скриншот · Claude Code · /skills", images=[dict(src="shots/skills.png", at=0)],
-        focus=[dict(at=0, rows=[0, 7], zoom=1.25), dict(at=1, rows=[6, 22], zoom=1.05)],
-        marks=[dict(at=1, rows=[7, 22], cols=[39, 64], color="accent")],
+        focus=[dict(at=0, rows=[0, 7]), dict(at=1, rows=[6, 22])],
+        marks=[dict(at=0, rows=[0, 1], cols=[2, 80], color="accent"), dict(at=1, rows=[6, 21], cols=[39, 64], color="accent")],
     ), lines=[
         "В Claude Code список навыков открывается командой /skills. Здесь собраны все навыки, которые сейчас подключены.",
         "А справа видно, сколько места занимает краткое описание каждого из них. Совсем немного — пара сотен токенов, то есть кусочков слов.",

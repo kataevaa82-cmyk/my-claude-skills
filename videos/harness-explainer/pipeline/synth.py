@@ -18,12 +18,16 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
-from pron import caption_text, load_probe, tts_text  # noqa: E402
+from pron import caption_text, load_probe, tts_text, yandex_text  # noqa: E402
 from script import CHAPTERS, SCENES  # noqa: E402
 
 FPS = 30
 SR = 48000
-VOICE = "tatiana"
+# движок озвучки: yandex (SpeechKit, нужен YANDEX_API_KEY) или rhvoice (офлайн)
+ENGINE = os.environ.get("TTS_ENGINE", "yandex" if os.environ.get("YANDEX_API_KEY") else "rhvoice")
+VOICE = os.environ.get("TTS_VOICE", "alena" if ENGINE == "yandex" else "tatiana")
+EMOTION = os.environ.get("TTS_EMOTION", "good")
+SPEED = os.environ.get("TTS_SPEED", "1.0")
 CACHE = os.path.join(HERE, ".cache")
 os.makedirs(CACHE, exist_ok=True)
 
@@ -35,12 +39,37 @@ INTRO_PAD = 1.2     # тишина перед самой первой фразо
 OUTRO_PAD = 4.0     # хвост после последней фразы (музыка затухает)
 
 
+def yandex_raw(text, raw_path):
+    """Yandex SpeechKit v1: LPCM 48 кГц → WAV."""
+    import urllib.parse
+    import urllib.request
+    data = urllib.parse.urlencode(dict(text=text, lang="ru-RU", voice=VOICE, emotion=EMOTION, speed=SPEED,
+                                       format="lpcm", sampleRateHertz=str(SR))).encode()
+    req = urllib.request.Request("https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize", data=data,
+                                 headers={"Authorization": "Api-Key " + os.environ["YANDEX_API_KEY"]})
+    for attempt in range(5):
+        try:
+            pcm = urllib.request.urlopen(req, timeout=120).read()
+            break
+        except Exception as e:  # сеть/лимиты — повторяем с паузой
+            if attempt == 4:
+                raise
+            import time
+            time.sleep(2 ** attempt)
+    with wave.open(raw_path, "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
+        w.writeframes(pcm)
+
+
 def synth(text):
-    key = hashlib.sha1((VOICE + "|" + text).encode()).hexdigest()[:16]
+    key = hashlib.sha1((ENGINE + "|" + VOICE + "|" + EMOTION + "|" + SPEED + "|" + text).encode()).hexdigest()[:16]
     out = os.path.join(CACHE, key + ".wav")
     if not os.path.exists(out):
         raw = out + ".raw.wav"
-        subprocess.run(["RHVoice-test", "-q", "max", "-p", VOICE, "-o", raw], input=text.encode(), check=True)
+        if ENGINE == "yandex":
+            yandex_raw(text, raw)
+        else:
+            subprocess.run(["RHVoice-test", "-q", "max", "-p", VOICE, "-o", raw], input=text.encode(), check=True)
         # 24 кГц → 48 кГц, срез НЧ-гула, лёгкое «присутствие», обрезка тишины по краям
         subprocess.run([
             "ffmpeg", "-v", "error", "-y", "-i", raw, "-af",
@@ -64,8 +93,8 @@ def main():
     for s in SCENES:
         for line in s["lines"]:
             t = line if isinstance(line, str) else line["t"]
-            jobs.append(tts_text(t, probe))
-    print("lines:", len(jobs), flush=True)
+            jobs.append(yandex_text(t) if ENGINE == "yandex" else tts_text(t, probe))
+    print("engine:", ENGINE, VOICE, "lines:", len(jobs), "chars:", sum(map(len, jobs)), flush=True)
     with ThreadPoolExecutor(max_workers=4) as ex:
         paths = list(ex.map(synth, jobs))
 

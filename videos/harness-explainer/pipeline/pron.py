@@ -101,3 +101,20 @@ def tts_text(text, probe=None):
         return mark(lw, stressed, w)
 
     return WORD_RE.sub(repl, text)
+
+
+def yandex_text(text):
+    """Текст для Yandex SpeechKit: своя расстановка ударений у движка хорошая,
+    поэтому явно ставим только проверенные правки (STRESS_FIX и пометки в сценарии),
+    в разметке Яндекса — «+» перед ударной гласной."""
+    text = apply_pron(text)
+
+    def repl(m):
+        w = m.group(0)
+        lw = w.lower()
+        if ACUTE not in lw and lw in STRESS_FIX:
+            return mark(lw, STRESS_FIX[lw], w)
+        return w
+
+    text = WORD_RE.sub(repl, text)
+    return re.sub(r"([АЕИОУЫЭЮЯЁаеиоуыэюяё])" + ACUTE, r"+\1", text)

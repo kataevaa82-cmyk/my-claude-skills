@@ -110,8 +110,8 @@ export const Sage: React.FC<any> = ({noteAt, fakeAt, harnessAt}) => {
         </div>
       ) : null}
       {/* «сейчас я поищу» */}
-      <div style={{position: 'absolute', left: 1180, top: 160, opacity: fake, transform: `scale(${0.8 + 0.2 * fake})`}}>
-        <Bubble who="ai" style={{fontSize: 30, maxWidth: 520}}>
+      <div style={{position: 'absolute', left: 1390, top: 110, opacity: fake, transform: `scale(${0.8 + 0.2 * fake})`}}>
+        <Bubble who="ai" style={{fontSize: 29, maxWidth: 470}}>
           «Сейчас я поищу в интернете…» <span style={{color: C.red, fontWeight: 800}}>— только слова</span>
         </Bubble>
       </div>
@@ -161,7 +161,7 @@ export const PartsGrid: React.FC<any> = ({revealLine, mode, carAt}) => {
           {mode === 'recap' ? 'Итак, семь деталей харнесса' : 'Из чего состоит харнесс'}
         </div>
       </Appear>
-      <div style={{display: 'flex', flexWrap: 'wrap', gap: 24, marginTop: 44, justifyContent: 'center', opacity: 1 - car * 0.75, transform: `scale(${1 - car * 0.06})`}}>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: 24, marginTop: 44, justifyContent: 'center', opacity: 1 - car * 0.88, transform: `scale(${1 - car * 0.06})`}}>
         {PARTS.map((p, i) => {
           const fi = mode === 'recap' ? 0 : f0 + i * step;
           const ap = interpolate(frame, [fi, fi + 14], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
@@ -182,7 +182,7 @@ export const PartsGrid: React.FC<any> = ({revealLine, mode, carAt}) => {
       </div>
       {carAt !== undefined ? (
         <div style={{position: 'absolute', left: 0, right: 0, top: 330, display: 'flex', justifyContent: 'center', opacity: car, transform: `scale(${0.85 + 0.15 * car})`}}>
-          <Card accent={C.coral} glow={0.8} style={{display: 'flex', alignItems: 'center', gap: 50, padding: '40px 60px'}}>
+          <Card accent={C.coral} glow={0.8} style={{display: 'flex', alignItems: 'center', gap: 50, padding: '40px 60px', background: 'linear-gradient(160deg, #22202C 0%, #15151E 100%)'}}>
             <div style={{textAlign: 'center'}}>
               <Orb e="🧠" size={150} color={C.violet} />
               <div style={{fontFamily: FONT.display, fontSize: 30, marginTop: 14, color: C.violet}}>Модель = двигатель</div>
